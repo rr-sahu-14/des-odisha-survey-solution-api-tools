@@ -1,0 +1,5 @@
+requests
+pandas
+openpyxl
+# only needed if an input file is a genuine old .xls file:
+# xlrd
