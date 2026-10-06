@@ -29,6 +29,10 @@ local_config.py
 *.key
 credentials*
 
+# ---- Claude Code notes: local reference only ----
+.claude/
+CLAUDE.md
+
 # ---- OS junk ----
 Thumbs.db
 desktop.ini

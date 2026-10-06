@@ -67,9 +67,10 @@ from requests.auth import HTTPBasicAuth
 SERVER = "https://your-server.example.org"   # base URL of your Survey Solutions server (real value: local_config.py)
 WORKSPACE = "primary"                    # workspace name (real value: local_config.py)
 
-# Relative to the folder you run the script from; both files are git-ignored.
-KEYS_EXCEL_FILE = "interview__keys.xlsx"   # from District -- just interview__key values
-LOOKUP_TAB_FILE = "out.tab"                # Survey Solutions .tab export -- has BOTH
+# Looked up next to this script, wherever you run it from; both files are git-ignored.
+_HERE = os.path.dirname(os.path.abspath(__file__))
+KEYS_EXCEL_FILE = os.path.join(_HERE, "interview__keys.xlsx")   # from District -- just interview__key values
+LOOKUP_TAB_FILE = os.path.join(_HERE, "out.tab")                # Survey Solutions .tab export -- has BOTH
                                                      # interview__key and interview__id
 
 ACTION = "hq-reject"       # one of: approve | reject | hq-approve | hq-reject | unapprove

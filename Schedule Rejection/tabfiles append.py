@@ -12,7 +12,7 @@ TAB_FILES = [
     "data/schedule_1B.tab",
     "data/schedule_2.tab",
 ]
-OUT_PATH = Path("out.tab")   # any path you choose
+OUT_PATH = Path(__file__).resolve().parent / "out.tab"   # written next to this script
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 try:
