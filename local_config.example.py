@@ -14,6 +14,10 @@ SCHEDULES = {
     # "00000000000000000000000000000000": ("Schedule B", 1),
 }
 
+# Where "Status Report/ScheduleWiseReport.py" saves its Excel file
+# (the report also reads SERVER, WORKSPACE and SCHEDULES above; labels like "Schedule 1A" become sheets "Schedule_1A")
+REPORT_OUT_XLSX = r"C:\path\to\interviews.xlsx"
+
 # Inputs for "Schedule Rejection/tabfiles append.py": one .tab export per questionnaire
 TAB_FILES = [
     # r"C:\path\to\export_1.tab",
