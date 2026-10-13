@@ -1,7 +1,7 @@
 # ScheduleWiseReport.py - How it works
 
-A plain-English guide to `ScheduleWiseReport.py`.
-Local notes only. Do not upload to GitHub.
+A plain-English guide to `ScheduleWiseReport.py`, the first script of the monthly progress report.
+The two scripts that analyse its output are described at the end of this guide.
 
 ## What the script does
 
@@ -98,3 +98,32 @@ The file is saved as `<name>_latest.xlsx`. It keeps the same name every run, so 
 - **Check the settings before every run:** `UPDATE_FROM`, `UPDATE_TO` and `AGRI_FILTER` must match the month you want.
 - **An interview is only found if its last update falls in the window.** If an interview for the month was last updated later, move `UPDATE_TO` later.
 - **Different questionnaires** can have different variable names for the first answers, so the Excel columns can differ between schedule sheets.
+
+## What to run next: the two analysis scripts
+
+Both read the Excel file made by `ScheduleWiseReport.py`. They **never contact the server and never ask for a password**.
+They find the file's folder from `REPORT_OUT_XLSX` in `local_config.py`.
+
+| Script | Input | Output |
+|---|---|---|
+| `DistrictScheduleTable.py` | `interviews_latest.xlsx`, sheet `All_Interviews` (or `PowerBI_Data`) | `district_schedule_table.xlsx`: one row per district, one column per schedule, with totals |
+| `datanalysis1.py` | The newest `interviews_*.xlsx` in the folder, sheet `All_Interviews` | `analysis_<date_time>.xlsx` with sheets `Summary`, `Monthly_Count`, `District_Count`, `District_x_Status`, `Sch_Dist_Status` |
+
+Things to know:
+- `DistrictScheduleTable.py` uses the column `District_Name` (setting `DISTRICT_COLUMN`). If a questionnaire names its district column differently, change that setting.
+- `DistrictScheduleTable.py` can count only some statuses with `STATUS_FILTER`. `None` counts every interview.
+- Run `ScheduleWiseReport.py` first. If the Excel file is missing, both scripts stop and say so.
+- `datanalysis1.py` reads the sheet `All_Interviews`, so it works with `POWER_BI_MODE = False` only.
+
+## The whole flow
+
+```
+Survey Solutions server
+        |  (ScheduleWiseReport.py: reads only)
+        v
+interviews_latest.xlsx
+        |
+        +--> DistrictScheduleTable.py --> district_schedule_table.xlsx
+        |
+        +--> datanalysis1.py ----------> analysis_<date_time>.xlsx
+```
